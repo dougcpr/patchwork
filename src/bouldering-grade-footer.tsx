@@ -1,7 +1,10 @@
 export const BoulderingGradeFooter = () => {
+  const save = () => {
+    console.log('save');
+  }
   return (
-    <div className="footer">
+    <button onClick={save} className="footer">
       Save
-    </div>
+    </button>
   )
 }

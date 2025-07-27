@@ -58,21 +58,6 @@ button:not(:disabled) svg {
   border-top-left-radius: 0.25rem;
 }
 
-.footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 4rem;
-  background-color: var(--primary);
-  padding-bottom: env(safe-area-inset-bottom);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  box-sizing: border-box;
-}
-
 .bouldering-grade-container {
   display: flex;
   flex-direction: column;
@@ -133,7 +118,7 @@ button:not(:disabled) svg {
   background-color: var(--secondary);
 }
 
-.bouldering-grade-attempt:active, .bouldering-grade-complete:active, .bouldering-grade-arrow:active:not(:disabled) {
+.bouldering-grade-attempt:active, .bouldering-grade-complete:active, .bouldering-grade-arrow:active:not(:disabled), .footer:active {
   filter: brightness(90%);
 }
 
@@ -172,8 +157,18 @@ button:not(:disabled) svg {
 }
 
 .footer {
-  align-items: center;
+  border: none;
+  border-top: 1px solid black;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4rem;
+  background-color: var(--primary);
+  padding-bottom: env(safe-area-inset-bottom);
   display: flex;
+  align-items: center;
   justify-content: center;
   font-size: 2rem;
+  box-sizing: border-box;
 }
