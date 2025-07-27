@@ -25,7 +25,6 @@ svg {
   grid-template-rows: 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
-  min-height: calc(100vh - 6rem);
 }
 
 .bouldering-grade-notes {
