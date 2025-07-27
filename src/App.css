@@ -9,7 +9,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-button:not:disabled svg {
+button:not(:disabled) svg {
   fill: #000000;
 }
 
