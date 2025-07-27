@@ -43,12 +43,12 @@ const App = () => {
     <div className="content">
       <BoulderingGradeLayout>
         <div className="homepage-content">
+          <BoulderingGradeNotes />
           <div className="bouldering-grade-container">
             <BoulderingGradeSelector grade={grade} setGrade={setGrade} />
             <BoulderingGradeActions grade={grade} setRecordedAttempts={setRecordedAttempts} />
           </div>
           <BoulderingGradeList recordedAttempts={recordedAttempts} />
-          <BoulderingGradeNotes />
         </div>
         <BoulderingGradeFooter />
       </BoulderingGradeLayout>
