@@ -7,7 +7,6 @@ import {BoulderingGradeActions} from "./bouldering-grade-actions";
 import {BoulderingGradeLayout} from "./bouldering-grade-layout";
 import {BoulderingGradeFooter} from "./bouldering-grade-footer";
 export enum BoulderingGrades {
-  VB = 'VB',
   V0 = 'V0',
   V1 = 'V1',
   V2 = 'V2',
