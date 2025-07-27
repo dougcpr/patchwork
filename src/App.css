@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+  margin: 0;
+  background-color: #f4f1ee;
+  --primary: #88b2d8;
+  --secondary: #d8ae88;
+  --full-width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+.homepage-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.homepage-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  height: calc(100vh - 6rem);
+}
+
+.bouldering-grade-notes {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+.bouldering-grade-notes textarea {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+ }
+
+.bouldering-grade-row {
+  align-items: center;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  background-color: var(--secondary);
+}
+
+.bouldering-grade-row.completed {
+  background-color: var(--primary);
+}
+
+.bouldering-grade-row:first-child {
+  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+}
+
+.footer {
+  height: 4rem;
+  background-color: var(--primary);
+}
+
+.bouldering-grade-container {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+  gap: 1rem;
+  max-width: 60dvw;
+}
+
+.bouldering-grade-selector-container {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bouldering-grade-selector {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25rem;
+}
+
+.bouldering-grade-label {
+  align-content: center;
+  align-items: center;
+  border-radius: 0.25rem;
+  display: flex;
+  font-size: 2rem;
+  justify-content: center;
+  margin: 0;
+  width: var(--full-width);
+}
+
+.bouldering-grade-actions {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.bouldering-grade-actions button {
+  flex: 1;
+}
+
+.bouldering-grade-attempt, .bouldering-grade-complete {
+  border: 1px solid black;
+  align-items: center;
+  border-radius: 0.25rem;
+  display: flex;
+  height: 4rem;
+  justify-content: center;
+  width: 100%;
+  font-size: 2rem;
+}
+
+.bouldering-grade-attempt {
+  background-color: var(--secondary);
+}
+
+.bouldering-grade-attempt:active, .bouldering-grade-complete:active, .bouldering-grade-arrow:active:not(:disabled) {
+  filter: brightness(90%);
+}
+
+.bouldering-grade-complete {
+  background-color: var(--primary);
+}
+
+.bouldering-grade-arrow {
+  background-color: var(--secondary);
+  border: none;
+  border-left: 1px solid black;
+  font-size: 2rem;
+  padding: 1rem;
+  width: 6rem;
+}
+
+.bouldering-grade-arrow:first-child {
+  border-top-right-radius: 0.25rem;
+}
+
+.bouldering-grade-arrow:last-child {
+  border-bottom: 0;
+  border-top: 1px solid black;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.bouldering-grade-list {
+  background-color: white;
+  border-radius: 0.25rem;
+  grid-column: 2;
+  grid-row: 1;
+  border: 1px solid black;
+  min-height: 10rem;
+  max-height: 14rem;
+  overflow-y: auto;
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+}
