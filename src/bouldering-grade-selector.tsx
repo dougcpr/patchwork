@@ -23,9 +23,6 @@ export const BoulderingGradeSelector = ({ grade, setGrade }: BoulderingGradeSele
   }
   return (
     <div className="bouldering-grade-selector-container">
-      <h4 className="bouldering-grade-label">
-        {grade}
-      </h4>
       <div className="bouldering-grade-selector">
         <button disabled={grade === lastGrade} onClick={raiseGrade} className="bouldering-grade-arrow">
           <CaretUpIcon />
@@ -34,6 +31,9 @@ export const BoulderingGradeSelector = ({ grade, setGrade }: BoulderingGradeSele
           <CaretDownIcon />
         </button>
       </div>
+      <h4 className="bouldering-grade-label">
+        {grade}
+      </h4>
     </div>
   )
 }

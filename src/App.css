@@ -129,20 +129,20 @@ button:not(:disabled) svg {
 .bouldering-grade-arrow {
   background-color: var(--secondary);
   border: none;
-  border-left: 1px solid black;
+  border-right: 1px solid black;
   font-size: 2rem;
   padding: 1rem;
   width: 6rem;
 }
 
 .bouldering-grade-arrow:first-child {
-  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
 }
 
 .bouldering-grade-arrow:last-child {
   border-bottom: 0;
   border-top: 1px solid black;
-  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 .bouldering-grade-list {
