@@ -41,7 +41,7 @@ const App = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const {data: climbs, isLoading: climbsLoading } = useGetClimbs(selectedDate);
   const [note, setNote] = useState('');
-  const {data: content, isLoading: notesLoading}  = useGetNotes(selectedDate);
+  const {data: content}  = useGetNotes(selectedDate);
   const updateNoteMutation = useUpdateNotes();
   const addClimbMutation = useAddClimb();
 
