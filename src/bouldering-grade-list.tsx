@@ -1,14 +1,15 @@
 import cn from 'clsx';
-import type {Attempt} from "./App.tsx";
+import type {Climb} from "./App.tsx";
 
-export const BoulderingGradeList = ({ recordedAttempts }: { recordedAttempts: Attempt[] }) => {
+export const BoulderingGradeList = ({ climbs }: { climbs: Climb[] }) => {
   return (
-    <div className="bouldering-grade-list">
-      {recordedAttempts.map((attempt, index) => (
+    <div
+      className="bouldering-grade-list">
+      {climbs && climbs.map((climb, index) => (
         <div key={index} className={
-          cn('bouldering-grade-row', {'completed': attempt.completed})}
+          cn('bouldering-grade-row', {'completed': climb.completed})}
         >
-          {attempt.grade}
+          {climb.grade}
         </div>))}
     </div>
   )

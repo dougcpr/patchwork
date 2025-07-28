@@ -1,28 +1,29 @@
 import { CheckIcon, PlusIcon } from "@phosphor-icons/react";
-import type { Dispatch, SetStateAction } from "react";
-import type {Attempt} from "./App.tsx";
+import type {Climb} from "./App.tsx";
 
 type BoulderingGradeActionsProps = {
   grade: string;
-  setRecordedAttempts: Dispatch<SetStateAction<Attempt[]>>;
+  setRecordedAttempts: (attempt: Climb) => void;
 };
 
 export const BoulderingGradeActions = ({
-                                         grade,
-                                         setRecordedAttempts,
-                                       }: BoulderingGradeActionsProps) => {
+   grade,
+   setRecordedAttempts,
+ }: BoulderingGradeActionsProps) => {
   const logAttempt = () => {
-    setRecordedAttempts(prev => [
-      { grade, completed: false },
-      ...prev
-    ]);
+    setRecordedAttempts({
+      grade,
+      completed: false,
+      selectedDate: new Date()
+    });
   };
 
   const logCompletion = () => {
-    setRecordedAttempts(prev => [
-      { grade, completed: true },
-      ...prev
-    ]);
+    setRecordedAttempts({
+      grade,
+      completed: true,
+      selectedDate: new Date()
+    });
   };
 
   return (

@@ -156,6 +156,16 @@ button:not(:disabled) svg {
   overflow-y: auto;
 }
 
+.bouldering-datepicker {
+  align-self: center;
+}
+
+.react-datepicker__input-container>input {
+  font-size: 2rem;
+  justify-items: center;
+  min-width: 24.25rem;
+}
+
 .footer {
   border: none;
   border-top: 1px solid black;
