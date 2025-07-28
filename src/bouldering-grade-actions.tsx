@@ -2,11 +2,13 @@ import { CheckIcon, PlusIcon } from "@phosphor-icons/react";
 import type {Climb} from "./App.tsx";
 
 type BoulderingGradeActionsProps = {
+  climbs: Climb[];
   grade: string;
   setRecordedAttempts: (attempt: Climb) => void;
 };
 
 export const BoulderingGradeActions = ({
+   climbs,
    grade,
    setRecordedAttempts,
  }: BoulderingGradeActionsProps) => {
@@ -34,6 +36,9 @@ export const BoulderingGradeActions = ({
       <button onClick={logCompletion} className="bouldering-grade-complete">
         <CheckIcon />
       </button>
+      <div className="bouldering-grade-total">
+        {climbs.length ?? 0}
+      </div>
     </div>
   );
 };

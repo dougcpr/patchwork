@@ -93,7 +93,8 @@ button:not(:disabled) svg {
 }
 
 .bouldering-grade-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
   justify-content: space-between;
   gap: 0.5rem;
@@ -104,6 +105,18 @@ button:not(:disabled) svg {
 }
 
 .bouldering-grade-attempt, .bouldering-grade-complete {
+  border: 1px solid black;
+  align-items: center;
+  border-radius: 0.25rem;
+  display: flex;
+  height: 4rem;
+  justify-content: center;
+  width: 100%;
+  font-size: 2rem;
+}
+
+.bouldering-grade-total {
+  background-color: white;
   border: 1px solid black;
   align-items: center;
   border-radius: 0.25rem;

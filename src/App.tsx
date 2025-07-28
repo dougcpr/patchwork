@@ -75,8 +75,9 @@ const App = () => {
         <div className="homepage-content">
           <BoulderingGradeNotes content={note} setNote={setNote} />
           <div className="bouldering-grade-container">
-            <BoulderingGradeSelector grade={grade} setGrade={setGrade} />
-            <BoulderingGradeActions 
+            <BoulderingGradeSelector  grade={grade} setGrade={setGrade} />
+            <BoulderingGradeActions
+              climbs={climbs ?? []}
               grade={grade} 
               setRecordedAttempts={handleAddClimb} 
             />
