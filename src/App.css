@@ -176,7 +176,6 @@ button:not(:disabled) svg {
 .react-datepicker__input-container>input {
   font-size: 2rem;
   justify-items: center;
-  min-width: 24.25rem;
 }
 
 .footer {
