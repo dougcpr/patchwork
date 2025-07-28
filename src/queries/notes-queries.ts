@@ -1,15 +1,19 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import { supabase } from '../supabaseClient'
 
-export const getNextDate = (date: Date) => {
-  const next = new Date(date);
-  next.setDate(date.getDate() + 1);
-  return next;
+export const getUTCStartOfDay = (date: Date): string => {
+  const start = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0));
+  return start.toISOString();
+};
+
+export const getUTCEndOfDay = (date: Date): string => {
+  const end = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 23, 59, 59, 999));
+  return end.toISOString();
 };
 
 const fetchNotes = async (date: Date) => {
-  const formattedDate = date.toISOString().split('T')[0];
-  const formattedNextDate = getNextDate(date).toISOString().split('T')[0];
+  const formattedDate = getUTCStartOfDay(date);
+  const formattedNextDate = getUTCEndOfDay(date);
   
   const { data, error } = await supabase
     .from('notes')
@@ -22,8 +26,8 @@ const fetchNotes = async (date: Date) => {
 }
 
 const updateNote = async (note: string, date: Date) => {
-  const formattedDate = date.toISOString().split('T')[0];
-  const formattedNextDate = getNextDate(date).toISOString().split('T')[0];
+  const formattedDate = getUTCStartOfDay(date);
+  const formattedNextDate = getUTCEndOfDay(date);
 
   // First check if a note exists for this date
   const { data: existingNote } = await supabase

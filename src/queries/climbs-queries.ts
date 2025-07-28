@@ -1,11 +1,11 @@
 import {supabase} from "../supabaseClient.ts";
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import type {Climb} from "../App.tsx";
-import {getNextDate} from "./notes-queries.ts";
+import {getUTCEndOfDay, getUTCStartOfDay} from "./notes-queries.ts";
 
 const fetchClimbs = async (date: Date): Promise<Climb[]> => {
-  const formattedDate = date.toISOString().split('T')[0];
-  const formattedNextDate = getNextDate(date).toISOString().split('T')[0];
+  const formattedDate = getUTCStartOfDay(date);
+  const formattedNextDate = getUTCEndOfDay(date);
   
   const { data, error } = await supabase
     .from('climbs')

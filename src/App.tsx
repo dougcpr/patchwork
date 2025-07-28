@@ -6,10 +6,10 @@ import {BoulderingGradeNotes} from "./bouldering-grade-notes";
 import {BoulderingGradeSelector} from "./bouldering-grade-selector";
 import {BoulderingGradeActions} from "./bouldering-grade-actions";
 import {BoulderingGradeLayout} from "./bouldering-grade-layout";
-import {BoulderingGradeFooter} from "./bouldering-grade-footer";
 import {useGetNotes, useUpdateNotes} from "./queries/notes-queries.ts";
 import {useGetClimbs, useAddClimb} from "./queries/climbs-queries.ts";
 import DatePicker from "react-datepicker";
+import {useAutoSaveNote} from "./cron/auto-save-note.ts";
 
 export enum BoulderingGrades {
   V0 = 'V0',
@@ -65,9 +65,7 @@ const App = () => {
     }
   }
 
-  const handleSaveNote = () => {
-    updateNoteMutation.mutate({ note, date: selectedDate });
-  };
+  useAutoSaveNote(note, selectedDate, updateNoteMutation);
 
   return (
     <div className="content">
@@ -91,7 +89,6 @@ const App = () => {
         <div className="bouldering-datepicker">
           <DatePicker selected={selectedDate} onChange={handleDateChange} />
         </div>
-        <BoulderingGradeFooter saveNote={handleSaveNote} />
       </BoulderingGradeLayout>
     </div>
   );
