@@ -74,8 +74,11 @@ const App = () => {
         }
       })
     const totalClimbs = climbs?.length ?? 1;
-      const climbRatio = _.round(completedClimbs/totalClimbs * 100, 1)
-      return `${climbRatio}%`;
+    let climbRatio = _.round(completedClimbs/totalClimbs * 100, 1)
+    if (isNaN(climbRatio)) {
+      climbRatio = 0;
+    }
+    return `${climbRatio}%`;
   }
 
   const calculateAverageGrade = (): number => {
