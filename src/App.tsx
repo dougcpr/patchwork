@@ -123,7 +123,6 @@ const App = () => {
             <BoulderingGradeList climbs={climbs || []} />
           )}
         </div>
-        <BoulderingGradeDatePicker initialSelectedDate={selectedDate} handleDateChange={handleDateChange} />
         <div style={{display: "flex", justifyContent: "space-between", gap: "1rem"}}>
           <div className="bouldering-grade-total">
             {calculateAverageGrade()}
@@ -135,6 +134,7 @@ const App = () => {
             {climbs?.length ?? 0}
           </div>
         </div>
+        <BoulderingGradeDatePicker initialSelectedDate={selectedDate} handleDateChange={handleDateChange} />
       </BoulderingGradeLayout>
     </div>
   );
