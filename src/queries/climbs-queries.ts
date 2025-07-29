@@ -11,6 +11,7 @@ const fetchClimbs = async (date: Date): Promise<Climb[]> => {
     .select('*')
     .filter('created_at', 'gte', startUTC)
     .filter('created_at', 'lt', endUTC)
+    .order('id', { ascending: false })
 
   if (error) throw new Error(error.message)
   return data || []
