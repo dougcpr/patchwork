@@ -1,6 +1,7 @@
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import {useState, useEffect} from "react";
+import * as _ from 'lodash';
 import {BoulderingGradeList} from "./bouldering-grade-list";
 import {BoulderingGradeNotes} from "./bouldering-grade-notes";
 import {BoulderingGradeSelector} from "./bouldering-grade-selector";
@@ -65,6 +66,40 @@ const App = () => {
     }
   }
 
+  const detectCompletionRate = (): string => {
+      let completedClimbs = 0;
+      climbs?.map(climb => {
+        if (climb.completed) {
+          completedClimbs++;
+        }
+      })
+    const totalClimbs = climbs?.length ?? 1;
+      const climbRatio = _.round(completedClimbs/totalClimbs * 100, 1)
+      return `${climbRatio}%`;
+  }
+
+  const calculateAverageGrade = (): number => {
+    if (!climbs || climbs.length === 0) return 0;
+
+    const gradeToNumber = (grade: string): number | null => {
+      const match = grade.match(/^V(\d+)$/i);
+      return match ? parseInt(match[1], 10) : null;
+    };
+
+    let total = 0;
+    let count = 0;
+
+    for (const climb of climbs) {
+      const numGrade = gradeToNumber(climb.grade);
+      if (numGrade !== null) {
+        total += numGrade;
+        count++;
+      }
+    }
+
+    return count === 0 ? 0 : _.round((total / count), 1);
+  };
+
   useAutoSaveNote(note, selectedDate, updateNoteMutation);
 
   return (
@@ -75,7 +110,6 @@ const App = () => {
           <div className="bouldering-grade-container">
             <BoulderingGradeSelector  grade={grade} setGrade={setGrade} />
             <BoulderingGradeActions
-              climbs={climbs ?? []}
               grade={grade} 
               setRecordedAttempts={handleAddClimb} 
             />
@@ -87,6 +121,17 @@ const App = () => {
           )}
         </div>
         <BoulderingGradeDatePicker initialSelectedDate={selectedDate} handleDateChange={handleDateChange} />
+        <div style={{display: "flex", justifyContent: "space-between", gap: "1rem"}}>
+          <div className="bouldering-grade-total">
+            {calculateAverageGrade()}
+          </div>
+          <div className="bouldering-grade-total">
+            {detectCompletionRate()}
+          </div>
+          <div className="bouldering-grade-total">
+            {climbs?.length ?? 0}
+          </div>
+        </div>
       </BoulderingGradeLayout>
     </div>
   );
