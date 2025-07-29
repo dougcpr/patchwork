@@ -1,23 +1,23 @@
 import {supabase} from "../supabaseClient.ts";
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import type {Climb} from "../App.tsx";
-import {getUTCEndOfDay, getUTCStartOfDay} from "./notes-queries.ts";
+import {getUTCDateRangeForLocalDay} from "./notes-queries.ts";
 
 const fetchClimbs = async (date: Date): Promise<Climb[]> => {
-  const formattedDate = getUTCStartOfDay(date);
-  const formattedNextDate = getUTCEndOfDay(date);
-  
+  const { startUTC, endUTC } = getUTCDateRangeForLocalDay(date);
+
   const { data, error } = await supabase
     .from('climbs')
     .select('*')
-    .filter('created_at', 'gte', formattedDate)
-    .filter('created_at', 'lt', formattedNextDate)
+    .filter('created_at', 'gte', startUTC)
+    .filter('created_at', 'lt', endUTC)
 
   if (error) throw new Error(error.message)
   return data || []
 }
 
 const addClimb = async (newClimb: Climb): Promise<void> => {
+  console.log(newClimb.selectedDate);
   const { error } = await supabase
     .from('climbs')
     .insert([{

@@ -1,40 +1,41 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import { supabase } from '../supabaseClient'
 
-export const getUTCStartOfDay = (date: Date): string => {
-  const start = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0));
-  return start.toISOString();
-};
+export const getUTCDateRangeForLocalDay = (date: Date) => {
+  const startOfDayLocal = new Date(date);
+  startOfDayLocal.setHours(0, 0, 0, 0); // 00:00:00.000 local
 
-export const getUTCEndOfDay = (date: Date): string => {
-  const end = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 23, 59, 59, 999));
-  return end.toISOString();
-};
+  const endOfDayLocal = new Date(date);
+  endOfDayLocal.setHours(23, 59, 59, 999); // 23:59:59.999 local
+
+  const startUTC = startOfDayLocal.toISOString();
+  const endUTC = endOfDayLocal.toISOString();
+
+  return { startUTC, endUTC };
+}
 
 const fetchNotes = async (date: Date) => {
-  const formattedDate = getUTCStartOfDay(date);
-  const formattedNextDate = getUTCEndOfDay(date);
-  
+  const { startUTC, endUTC } = getUTCDateRangeForLocalDay(date);
+
   const { data, error } = await supabase
     .from('notes')
     .select('content')
-    .filter('created_at', 'gte', formattedDate)
-    .filter('created_at', 'lt', formattedNextDate)
+    .filter('created_at', 'gte', startUTC)
+    .filter('created_at', 'lt', endUTC)
     .single()
   if (error) throw new Error(error.message)
   return data
 }
 
 const updateNote = async (note: string, date: Date) => {
-  const formattedDate = getUTCStartOfDay(date);
-  const formattedNextDate = getUTCEndOfDay(date);
+  const { startUTC, endUTC } = getUTCDateRangeForLocalDay(date);
 
   // First check if a note exists for this date
   const { data: existingNote } = await supabase
     .from('notes')
     .select('id')
-    .gte('created_at', formattedDate)
-    .lt('created_at', formattedNextDate)
+    .gte('created_at', startUTC)
+    .lt('created_at', endUTC)
     .single();
 
   if (existingNote) {
@@ -50,9 +51,9 @@ const updateNote = async (note: string, date: Date) => {
     // Insert new note
     const { data, error } = await supabase
       .from('notes')
-      .insert([{ 
-        content: note, 
-        created_at: formattedDate 
+      .insert([{
+        content: note,
+        created_at: startUTC
       }]);
 
     if (error) throw new Error(error.message);
