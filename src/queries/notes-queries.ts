@@ -27,6 +27,16 @@ const fetchNotes = async (date: Date) => {
   return data
 }
 
+export const fetchNotesFromLastFiveActiveDays = async () => {
+  const { data, error } = await supabase
+    .from('notes')
+    .select('*')
+    .limit(5)
+    .order('created_at', { ascending: false })
+  if (error) throw new Error(error.message)
+  return data
+}
+
 const updateNote = async (note: string, date: Date) => {
   const { startUTC, endUTC } = getUTCDateRangeForLocalDay(date);
 

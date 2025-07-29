@@ -131,7 +131,7 @@ button:not(:disabled) svg {
   background-color: var(--secondary);
 }
 
-.bouldering-grade-attempt:active, .bouldering-grade-complete:active, .bouldering-grade-arrow:active:not(:disabled), .footer:active {
+.bouldering-grade-attempt:active, .bouldering-grade-complete:active, .bouldering-grade-arrow:active:not(:disabled), .date-bar-item:active {
   filter: brightness(90%);
 }
 
@@ -169,28 +169,33 @@ button:not(:disabled) svg {
   overflow-y: auto;
 }
 
-.bouldering-datepicker {
-  align-self: center;
-}
-
-.react-datepicker__input-container>input {
-  font-size: 2rem;
-  justify-items: center;
-}
-
-.footer {
-  border: none;
-  border-top: 1px solid black;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 4rem;
-  background-color: var(--primary);
-  padding-bottom: env(safe-area-inset-bottom);
+.date-bar {
+  border: 1px solid black;
+  border-radius: 0.5rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  box-sizing: border-box;
+  justify-content: space-between;
+  margin: 1rem;
+  overflow-y: auto;
+}
+
+.date-bar-item {
+  height: 3rem;
+  border: none;
+  background-color: white;
+  width: 100%;
+  text-align: center;
+}
+
+.date-bar-item:not(:first-child) {
+  border-left: 1px solid black;
+}
+
+.date-bar-item:first-child {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.date-bar-item:last-child {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }

@@ -8,8 +8,8 @@ import {BoulderingGradeActions} from "./bouldering-grade-actions";
 import {BoulderingGradeLayout} from "./bouldering-grade-layout";
 import {useGetNotes, useUpdateNotes} from "./queries/notes-queries.ts";
 import {useGetClimbs, useAddClimb} from "./queries/climbs-queries.ts";
-import DatePicker from "react-datepicker";
 import {useAutoSaveNote} from "./cron/auto-save-note.ts";
+import {BoulderingGradeDatePicker} from "./bouldering-grade-date-picker.tsx";
 
 export enum BoulderingGrades {
   V0 = 'V0',
@@ -86,9 +86,7 @@ const App = () => {
             <BoulderingGradeList climbs={climbs || []} />
           )}
         </div>
-        <div className="bouldering-datepicker">
-          <DatePicker selected={selectedDate} onChange={handleDateChange} />
-        </div>
+        <BoulderingGradeDatePicker initialSelectedDate={selectedDate} handleDateChange={handleDateChange} />
       </BoulderingGradeLayout>
     </div>
   );
