@@ -5,6 +5,7 @@ export const BoulderingGradeNotes = ({content, setNote}: {content: string, setNo
     <div className="bouldering-grade-notes">
         <motion.textarea
           value={content || ''}
+          placeholder="Enter notes here..."
           onChange={(e) => setNote(e.target.value)}
           cols={30}
           rows={10}
