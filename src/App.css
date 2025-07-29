@@ -133,7 +133,7 @@ button:not(:disabled) svg {
   background-color: var(--secondary);
 }
 
-.bouldering-grade-attempt:active, .bouldering-grade-complete:active, .bouldering-grade-arrow:active:not(:disabled), .date-bar-item:active {
+.bouldering-grade-attempt:not(:disabled):active, .bouldering-grade-complete:not(:disabled):active, .bouldering-grade-arrow:active:not(:disabled), .date-bar-item:active {
   filter: brightness(90%);
 }
 

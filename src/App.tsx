@@ -113,6 +113,7 @@ const App = () => {
           <div className="bouldering-grade-container">
             <BoulderingGradeSelector  grade={grade} setGrade={setGrade} />
             <BoulderingGradeActions
+              selectedDate={selectedDate}
               grade={grade} 
               setRecordedAttempts={handleAddClimb} 
             />

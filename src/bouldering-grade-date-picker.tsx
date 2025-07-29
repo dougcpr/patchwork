@@ -6,7 +6,7 @@ type Props = {
   handleDateChange: (date: Date) => void;
 };
 
-const isSameDay = (a: string, b: string) =>
+export const isSameDay = (a: string, b: string) =>
   a.split("T")[0] === b.split("T")[0];
 
 export const BoulderingGradeDatePicker = ({ initialSelectedDate, handleDateChange }: Props) => {
