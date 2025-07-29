@@ -58,7 +58,8 @@ export const BoulderingGradeDatePicker = ({ initialSelectedDate, handleDateChang
             onClick={() => handleDateClick(date)}
             className="date-bar-item"
             style={{
-              backgroundColor: isSelected ? "#88b2d8" : "white"
+              backgroundColor: isSelected ? "#88b2d8" : "white",
+              color: 'black'
             }}
           >
             <div>{date.toLocaleString("default", { month: "short" })}</div>
