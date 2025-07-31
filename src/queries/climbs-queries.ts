@@ -17,6 +17,16 @@ const fetchClimbs = async (date: Date): Promise<Climb[]> => {
   return data || []
 }
 
+const fetchAllClimbs = async (): Promise<Climb[]> => {
+
+  const { data, error } = await supabase
+    .from('climbs')
+    .select('*')
+
+  if (error) throw new Error(error.message)
+  return data || []
+}
+
 const addClimb = async (newClimb: Climb): Promise<void> => {
   console.log(newClimb.selectedDate);
   const { error } = await supabase
@@ -34,6 +44,13 @@ export const useGetClimbs = (date: Date) => {
   return useQuery<Climb[]>({
     queryKey: ['climbs', date.toISOString().split('T')[0]],
     queryFn: () => fetchClimbs(date),
+  })
+}
+
+export const useGetAllClimbs = () => {
+  return useQuery<Climb[]>({
+    queryKey: ['climbs'],
+    queryFn: () => fetchAllClimbs(),
   })
 }
 

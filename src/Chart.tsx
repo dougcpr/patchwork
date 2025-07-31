@@ -1,40 +1,92 @@
 // ChartComponent.tsx
-import React from 'react';
-import { Line } from 'react-chartjs-2';
+import React, { useMemo } from 'react';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js';
 
-import type {
-  ChartOptions,
-  ChartData,
-} from 'chart.js';
+import type { ChartOptions } from 'chart.js';
+import { useGetAllClimbs } from './queries/climbs-queries.ts';
 
 // Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
 );
+const colorMap: Record<string, string> = {
+  V0: 'rgba(255, 99, 132, 0.6)',
+  V1: 'rgba(54, 162, 235, 0.6)',
+  V2: 'rgba(255, 206, 86, 0.6)',
+  V3: 'rgba(75, 192, 192, 0.6)',
+  V4: 'rgba(153, 102, 255, 0.6)',
+  V5: 'rgba(255, 159, 64, 0.6)',
+};
 
-interface ChartComponentProps {
-  chartData: ChartData<'line', number[], string>;
-  chartTitle?: string;
-}
+const fadedColorMap: Record<string, string> = {
+  V0: 'rgba(255, 99, 132, 0.3)',
+  V1: 'rgba(54, 162, 235, 0.3)',
+  V2: 'rgba(255, 206, 86, 0.3)',
+  V3: 'rgba(75, 192, 192, 0.3)',
+  V4: 'rgba(153, 102, 255, 0.3)',
+  V5: 'rgba(255, 159, 64, 0.3)',
+};
 
-const ChartComponent: React.FC<ChartComponentProps> = ({ chartData, chartTitle = 'Sample Chart' }) => {
-  const options: ChartOptions<'line'> = {
+const ChartComponent: React.FC = () => {
+  const { data } = useGetAllClimbs();
+
+  const chartData = useMemo(() => {
+    if (!data) return null;
+
+    const gradeMap: Record<string, { completed: number; notCompleted: number }> = {};
+
+    data.forEach((climb: any) => {
+      const grade = climb.grade;
+      const isCompleted = climb.completed;
+
+      if (!gradeMap[grade]) {
+        gradeMap[grade] = { completed: 0, notCompleted: 0 };
+      }
+
+      if (isCompleted) {
+        gradeMap[grade].completed += 1;
+      } else {
+        gradeMap[grade].notCompleted += 1;
+      }
+    });
+
+    const grades = Object.keys(gradeMap).sort();
+
+    const completedAttempts = grades.map((grade) => gradeMap[grade].completed);
+    const notCompletedAttempts = grades.map((grade) => gradeMap[grade].notCompleted);
+
+    return {
+      labels: grades,
+      datasets: [
+        {
+          label: 'Completed Attempts',
+          data: completedAttempts,
+          backgroundColor: grades.map((grade) => colorMap[grade] || 'rgba(201, 203, 207, 0.6)'),
+        },
+        {
+          label: 'Not Completed Attempts',
+          data: notCompletedAttempts,
+          backgroundColor: grades.map((grade) => fadedColorMap[grade] || 'rgba(201, 203, 207, 0.3)'),
+        },
+      ],
+    };
+  }, [data]);
+
+  const options: ChartOptions<'bar'> = {
     responsive: true,
     plugins: {
       legend: {
@@ -42,12 +94,29 @@ const ChartComponent: React.FC<ChartComponentProps> = ({ chartData, chartTitle =
       },
       title: {
         display: true,
-        text: chartTitle,
+        text: 'Completed vs Not Completed Attempts by Grade',
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Number of Attempts',
+        },
+      },
+      x: {
+        title: {
+          display: true,
+          text: 'Grade',
+        },
       },
     },
   };
 
-  return <Line data={chartData} options={options} />;
+  if (!chartData) return <div>Loading...</div>;
+
+  return <Bar data={chartData} options={options} />;
 };
 
 export default ChartComponent;

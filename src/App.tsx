@@ -13,6 +13,7 @@ import {useAutoSaveNote} from "./cron/auto-save-note.ts";
 import {BoulderingGradeDatePicker} from "./bouldering-grade-date-picker.tsx";
 import type {ChartData} from "chart.js";
 import ChartComponent from "./Chart.tsx";
+import {motion} from 'framer-motion';
 
 
 export enum BoulderingGrades {
@@ -168,10 +169,15 @@ const App = () => {
               </div>
             </div>
           </>) : (
-            <>
-              <ChartComponent chartData={data} chartTitle="Monthly Sales" />
-              <ChartComponent chartData={data} chartTitle="Monthly Sales" />
-            </>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <ChartComponent />
+            </motion.div>
           )
         }
         <BoulderingGradeDatePicker
