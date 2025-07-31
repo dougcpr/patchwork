@@ -2,9 +2,9 @@
 
 body {
   margin: 0;
-  background-color: #3D8D7A;
-  --primary: #FBFFE4;
-  --secondary: #A3D1C6;
+  background-color: #f4f1ee;
+  --primary: #88b2d8;
+  --secondary: #d8ae88;
   --full-width: 100%;
   font-family: 'Roboto', sans-serif;
 }
@@ -117,7 +117,7 @@ button:not(:disabled) svg {
 }
 
 .bouldering-grade-total {
-  background-color: var(--primary);
+  background-color: white;
   border: 1px solid black;
   align-items: center;
   border-radius: 0.25rem;
