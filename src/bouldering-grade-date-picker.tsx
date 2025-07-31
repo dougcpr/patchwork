@@ -73,7 +73,7 @@ export const BoulderingGradeDatePicker = ({ isTransformed, setIsTransformed, ini
                 selected: isSelected
               })}
               style={{
-                backgroundColor: isSelected ? "#88b2d8" : "white",
+                backgroundColor: isSelected ? "#A3D1C6" : "white",
                 color: 'black'
               }}
             >

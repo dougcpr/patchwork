@@ -2,9 +2,9 @@
 
 body {
   margin: 0;
-  background-color: #f4f1ee;
-  --primary: #88b2d8;
-  --secondary: #d8ae88;
+  background-color: #3D8D7A;
+  --primary: #FBFFE4;
+  --secondary: #A3D1C6;
   --full-width: 100%;
   font-family: 'Roboto', sans-serif;
 }
@@ -17,8 +17,8 @@ button:not(:disabled) svg {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  padding: 1rem;
   gap: 1rem;
+  padding: 1rem 1rem 0;
 }
 
 .homepage-content {
@@ -117,7 +117,7 @@ button:not(:disabled) svg {
 }
 
 .bouldering-grade-total {
-  background-color: white;
+  background-color: var(--primary);
   border: 1px solid black;
   align-items: center;
   border-radius: 0.25rem;
@@ -125,8 +125,13 @@ button:not(:disabled) svg {
   height: 4rem;
   justify-content: center;
   width: 100%;
-  font-size: 2rem;
   padding: 0.25rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bouldering-grade-total-text {
+  font-size: 2rem;
 }
 
 .bouldering-grade-attempt {

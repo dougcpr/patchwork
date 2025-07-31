@@ -142,9 +142,30 @@ const App = () => {
               )}
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
-              <div className="bouldering-grade-total">{calculateAverageGrade()}</div>
-              <div className="bouldering-grade-total">{detectCompletionRate()}</div>
-              <div className="bouldering-grade-total">{climbs?.length ?? 0}</div>
+              <div className="bouldering-grade-total">
+                <div>
+                  Avg Grade
+                </div>
+                <div className="bouldering-grade-total-text">
+                  {calculateAverageGrade()}
+                </div>
+              </div>
+              <div className="bouldering-grade-total">
+                <div>
+                  Completion
+                </div>
+                <div className="bouldering-grade-total-text">
+                  {detectCompletionRate()}
+                </div>
+              </div>
+              <div className="bouldering-grade-total">
+                <div>
+                  Total Climbs
+                </div>
+                <div className="bouldering-grade-total-text">
+                  {climbs?.length ?? 0}
+                </div>
+              </div>
             </div>
           </>) : (
             <>
