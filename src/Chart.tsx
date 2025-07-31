@@ -73,12 +73,12 @@ const ChartComponent: React.FC = () => {
       labels: grades,
       datasets: [
         {
-          label: 'Completed Attempts',
+          label: 'Completed',
           data: completedAttempts,
           backgroundColor: grades.map((grade) => colorMap[grade] || 'rgba(201, 203, 207, 0.6)'),
         },
         {
-          label: 'Not Completed Attempts',
+          label: 'Not Completed',
           data: notCompletedAttempts,
           backgroundColor: grades.map((grade) => fadedColorMap[grade] || 'rgba(201, 203, 207, 0.3)'),
         },
@@ -94,7 +94,7 @@ const ChartComponent: React.FC = () => {
       },
       title: {
         display: true,
-        text: 'Completed vs Not Completed Attempts by Grade',
+        text: 'Completed vs Not Completed by Grade',
       },
     },
     scales: {
@@ -102,7 +102,7 @@ const ChartComponent: React.FC = () => {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Number of Attempts',
+          text: 'Attempts',
         },
       },
       x: {
