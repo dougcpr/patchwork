@@ -27,11 +27,11 @@ const fetchNotes = async (date: Date) => {
   return data
 }
 
-export const fetchNotesFromLastFiveActiveDays = async () => {
+export const fetchNotesFromLastThreeActiveDays = async () => {
   const { data, error } = await supabase
     .from('notes')
     .select('*')
-    .limit(5)
+    .limit(3)
     .order('created_at', { ascending: false })
   if (error) throw new Error(error.message)
   return data

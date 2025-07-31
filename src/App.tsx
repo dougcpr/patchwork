@@ -11,6 +11,9 @@ import {useGetNotes, useUpdateNotes} from "./queries/notes-queries.ts";
 import {useGetClimbs, useAddClimb} from "./queries/climbs-queries.ts";
 import {useAutoSaveNote} from "./cron/auto-save-note.ts";
 import {BoulderingGradeDatePicker} from "./bouldering-grade-date-picker.tsx";
+import type {ChartData} from "chart.js";
+import ChartComponent from "./Chart.tsx";
+
 
 export enum BoulderingGrades {
   V0 = 'V0',
@@ -45,6 +48,19 @@ const App = () => {
   const {data: content}  = useGetNotes(selectedDate);
   const updateNoteMutation = useUpdateNotes();
   const addClimbMutation = useAddClimb();
+  const [isTransformed, setIsTransformed] = useState(false);
+
+  const data: ChartData<'line', number[], string> = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    datasets: [
+      {
+        label: 'Sales',
+        data: [100, 200, 150, 300, 250],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      },
+    ],
+  };
 
   // Update note state when content changes (when date changes)
   useEffect(() => {
@@ -106,7 +122,7 @@ const App = () => {
   useAutoSaveNote(note, selectedDate, updateNoteMutation);
 
   return (
-    <div className="content">
+    <div className={`content ${isTransformed ? 'translate-up' : ''}`}>
       <BoulderingGradeLayout>
         <div className="homepage-content">
           <BoulderingGradeNotes content={note} setNote={setNote} />
@@ -135,7 +151,9 @@ const App = () => {
             {climbs?.length ?? 0}
           </div>
         </div>
-        <BoulderingGradeDatePicker initialSelectedDate={selectedDate} handleDateChange={handleDateChange} />
+        <BoulderingGradeDatePicker setIsTransformed={setIsTransformed} isTransformed={isTransformed} initialSelectedDate={selectedDate} handleDateChange={handleDateChange} />
+        <ChartComponent chartData={data} chartTitle="Monthly Sales" />
+        <ChartComponent chartData={data} chartTitle="Monthly Sales" />
       </BoulderingGradeLayout>
     </div>
   );

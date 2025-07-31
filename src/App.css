@@ -26,6 +26,7 @@ button:not(:disabled) svg {
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 1rem;
+  margin-top: 5rem;
 }
 
 .bouldering-grade-notes {
@@ -199,4 +200,21 @@ button:not(:disabled) svg {
 .date-bar-item:last-child {
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+}
+
+.calendar-item {
+  font-size: 2rem;
+}
+
+.calendar-item svg {
+  margin-top: 0.4rem;
+}
+
+.content {
+  transition: transform 0.6s ease;
+  margin-top: -5rem;
+}
+
+.translate-up {
+  transform: translateY(-37rem);
 }
