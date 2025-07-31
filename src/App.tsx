@@ -120,43 +120,48 @@ const App = () => {
   };
 
   useAutoSaveNote(note, selectedDate, updateNoteMutation);
-
   return (
-    <div className={`content ${isTransformed ? 'translate-up' : ''}`}>
+    <div className={`content`}>
       <BoulderingGradeLayout>
-        <div className="homepage-content">
-          <BoulderingGradeNotes content={note} setNote={setNote} />
-          <div className="bouldering-grade-container">
-            <BoulderingGradeSelector  grade={grade} setGrade={setGrade} />
-            <BoulderingGradeActions
-              selectedDate={selectedDate}
-              grade={grade} 
-              setRecordedAttempts={handleAddClimb} 
-            />
-          </div>
-          {climbsLoading ? (
-            <div className="bouldering-grade-list"></div>
-          ) : (
-            <BoulderingGradeList climbs={climbs || []} />
-          )}
-        </div>
-        <div style={{display: "flex", justifyContent: "space-between", gap: "1rem"}}>
-          <div className="bouldering-grade-total">
-            {calculateAverageGrade()}
-          </div>
-          <div className="bouldering-grade-total">
-            {detectCompletionRate()}
-          </div>
-          <div className="bouldering-grade-total">
-            {climbs?.length ?? 0}
-          </div>
-        </div>
-        <BoulderingGradeDatePicker setIsTransformed={setIsTransformed} isTransformed={isTransformed} initialSelectedDate={selectedDate} handleDateChange={handleDateChange} />
-        <ChartComponent chartData={data} chartTitle="Monthly Sales" />
-        <ChartComponent chartData={data} chartTitle="Monthly Sales" />
+        {!isTransformed ?
+          (<>
+            <div className="homepage-content">
+              <BoulderingGradeNotes content={note} setNote={setNote} />
+              <div className="bouldering-grade-container">
+                <BoulderingGradeSelector grade={grade} setGrade={setGrade} />
+                <BoulderingGradeActions
+                  selectedDate={selectedDate}
+                  grade={grade}
+                  setRecordedAttempts={handleAddClimb}
+                />
+              </div>
+              {climbsLoading ? (
+                <div className="bouldering-grade-list"></div>
+              ) : (
+                <BoulderingGradeList climbs={climbs || []} />
+              )}
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem" }}>
+              <div className="bouldering-grade-total">{calculateAverageGrade()}</div>
+              <div className="bouldering-grade-total">{detectCompletionRate()}</div>
+              <div className="bouldering-grade-total">{climbs?.length ?? 0}</div>
+            </div>
+          </>) : (
+            <>
+              <ChartComponent chartData={data} chartTitle="Monthly Sales" />
+              <ChartComponent chartData={data} chartTitle="Monthly Sales" />
+            </>
+          )
+        }
+        <BoulderingGradeDatePicker
+          setIsTransformed={setIsTransformed}
+          isTransformed={isTransformed}
+          initialSelectedDate={selectedDate}
+          handleDateChange={handleDateChange}
+        />
       </BoulderingGradeLayout>
     </div>
-  );
+  )
 };
 
 export default App;

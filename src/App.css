@@ -26,7 +26,6 @@ button:not(:disabled) svg {
   grid-template-columns: 2fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 1rem;
-  margin-top: 5rem;
 }
 
 .bouldering-grade-notes {
@@ -134,7 +133,7 @@ button:not(:disabled) svg {
   background-color: var(--secondary);
 }
 
-.bouldering-grade-attempt:not(:disabled):active, .bouldering-grade-complete:not(:disabled):active, .bouldering-grade-arrow:active:not(:disabled), .date-bar-item:active {
+.bouldering-grade-attempt:not(:disabled):active, .bouldering-grade-complete:not(:disabled):active, .bouldering-grade-arrow:active:not(:disabled), .date-bar-item:not(:disabled):active {
   filter: brightness(90%);
 }
 
@@ -211,11 +210,13 @@ button:not(:disabled) svg {
 }
 
 .content {
-  transition: transform 0.6s ease;
-  margin-top: -4rem;
+  transition: transform 0.6s ease-in-out;
   overflow: hidden;
 }
 
-.translate-up {
-  transform: translateY(-37rem);
+.fixed-date-picker {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  width: 92%;
 }

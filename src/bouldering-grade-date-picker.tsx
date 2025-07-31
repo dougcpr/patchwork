@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchNotesFromLastThreeActiveDays } from "./queries/notes-queries.ts";
 import {ChartPieIcon, HouseIcon} from "@phosphor-icons/react";
+import cn from "clsx";
 
 type Props = {
   isTransformed: boolean;
@@ -56,27 +57,32 @@ export const BoulderingGradeDatePicker = ({ isTransformed, setIsTransformed, ini
   };
 
   return (
-    <div className={`date-bar`}>
-      <button onClick={updateStyle} className="date-bar-item calendar-item">
-        {isTransformed ? <ChartPieIcon /> : <HouseIcon /> }
-      </button>
-      {dates.map((date, index) => {
-        const isSelected = isSameDay(selectedDate.toISOString(), date.toISOString())
-        return (
-          <button
-            key={index}
-            onClick={() => handleDateClick(date)}
-            className="date-bar-item"
-            style={{
-              backgroundColor: isSelected ? "#88b2d8" : "white",
-              color: 'black'
-            }}
-          >
-            <div>{date.toLocaleString("default", { month: "short" })}</div>
-            <div>{date.getDate()}</div>
-          </button>
-        );
-      })}
+    <div className="fixed-date-picker">
+      <div className={`date-bar`}>
+        <button onClick={updateStyle} className="date-bar-item calendar-item">
+          {isTransformed ? <HouseIcon /> : <ChartPieIcon /> }
+        </button>
+        {dates.map((date, index) => {
+          const isSelected = isSameDay(selectedDate.toISOString(), date.toISOString())
+          return (
+            <button
+              key={index}
+              disabled={isTransformed}
+              onClick={() => handleDateClick(date)}
+              className={cn('date-bar-item', {
+                selected: isSelected
+              })}
+              style={{
+                backgroundColor: isSelected ? "#88b2d8" : "white",
+                color: 'black'
+              }}
+            >
+              <div>{date.toLocaleString("default", { month: "short" })}</div>
+              <div>{date.getDate()}</div>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };
