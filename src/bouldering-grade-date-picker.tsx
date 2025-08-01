@@ -59,15 +59,19 @@ export const BoulderingGradeDatePicker = ({ isTransformed, setIsTransformed, ini
   return (
     <div className="fixed-date-picker">
       <div className={`date-bar`}>
-        <button onClick={updateStyle} className="date-bar-item calendar-item">
+        <button
+          onClick={updateStyle}
+          className={cn("date-bar-item calendar-item", {
+            expanded: isTransformed
+          })}
+        >
           {isTransformed ? <HouseIcon /> : <ChartPieIcon /> }
         </button>
-        {dates.map((date, index) => {
+        {!isTransformed && dates.map((date, index) => {
           const isSelected = isSameDay(selectedDate.toISOString(), date.toISOString())
           return (
             <button
               key={index}
-              disabled={isTransformed}
               onClick={() => handleDateClick(date)}
               className={cn('date-bar-item', {
                 selected: isSelected
