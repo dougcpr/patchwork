@@ -206,23 +206,8 @@ button:not(:disabled) svg {
   border-bottom-right-radius: 0.5rem;
 }
 
-.date-bar-item.calendar-item {
-  transition: all 0.4s ease-in-out;
-  flex-shrink: 0;
-  flex-grow: 0;
-  display: flex;
-  justify-content: center;
+.calendar-item {
   font-size: 2rem;
-  width: 4rem;
-}
-
-.date-bar-item.calendar-item.expanded {
-  width: 100%;
-  flex-grow: 1;
-  flex-shrink: 1;
-  background-color: var(--primary);
-  border-radius: 0.5rem;
-  color: white;
 }
 
 .calendar-item svg {
