@@ -8,12 +8,12 @@ import {BoulderingGradeSelector} from "./bouldering-grade-selector";
 import {BoulderingGradeActions} from "./bouldering-grade-actions";
 import {BoulderingGradeLayout} from "./bouldering-grade-layout";
 import {useGetNotes, useUpdateNotes} from "./queries/notes-queries.ts";
-import {useGetClimbs, useAddClimb} from "./queries/climbs-queries.ts";
+import {useGetClimbs, useAddClimb, useGetAllClimbs} from "./queries/climbs-queries.ts";
 import {useAutoSaveNote} from "./cron/auto-save-note.ts";
 import {BoulderingGradeDatePicker} from "./bouldering-grade-date-picker.tsx";
-import type {ChartData} from "chart.js";
-import ChartComponent from "./Chart.tsx";
 import {motion} from 'framer-motion';
+import DailyClimbStackedChart from "./daily-climb-stacked-chart.tsx";
+import GradeChart from "./grade-chart.tsx";
 
 
 export enum BoulderingGrades {
@@ -35,6 +35,7 @@ export type Climb = {
   grade: string;
   completed: boolean;
   selectedDate: Date;
+  created_at: string;
 }
 
 export const listOfBoulderingGrades: string[] = Object.values(BoulderingGrades);
@@ -50,18 +51,7 @@ const App = () => {
   const updateNoteMutation = useUpdateNotes();
   const addClimbMutation = useAddClimb();
   const [isTransformed, setIsTransformed] = useState(false);
-
-  const data: ChartData<'line', number[], string> = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [
-      {
-        label: 'Sales',
-        data: [100, 200, 150, 300, 250],
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      },
-    ],
-  };
+  const { data } = useGetAllClimbs();
 
   // Update note state when content changes (when date changes)
   useEffect(() => {
@@ -176,7 +166,8 @@ const App = () => {
               transition={{ duration: 0.6, ease: 'easeOut' }}
               style={{ overflow: 'hidden' }}
             >
-              <ChartComponent />
+              <GradeChart data={data} />
+              <DailyClimbStackedChart data={data} />
             </motion.div>
           )
         }

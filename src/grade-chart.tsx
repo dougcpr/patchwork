@@ -1,5 +1,4 @@
-// ChartComponent.tsx
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -12,7 +11,7 @@ import {
 } from 'chart.js';
 
 import type { ChartOptions } from 'chart.js';
-import { useGetAllClimbs } from './queries/climbs-queries.ts';
+import type {Climb} from "./App.tsx";
 
 // Register Chart.js components
 ChartJS.register(
@@ -23,7 +22,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const colorMap: Record<string, string> = {
+export const colorMap: Record<string, string> = {
   V0: 'rgba(255, 99, 132, 0.6)',
   V1: 'rgba(54, 162, 235, 0.6)',
   V2: 'rgba(255, 206, 86, 0.6)',
@@ -41,8 +40,7 @@ const fadedColorMap: Record<string, string> = {
   V5: 'rgba(255, 159, 64, 0.3)',
 };
 
-const ChartComponent: React.FC = () => {
-  const { data } = useGetAllClimbs();
+const GradeChart = ({data}: { data?: Climb[] }) => {
 
   const chartData = useMemo(() => {
     if (!data) return null;
@@ -119,4 +117,4 @@ const ChartComponent: React.FC = () => {
   return <Bar data={chartData} options={options} />;
 };
 
-export default ChartComponent;
+export default GradeChart;
